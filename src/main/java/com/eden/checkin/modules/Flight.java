@@ -1,6 +1,5 @@
-package com.eden.checkin.beans;
+package com.eden.checkin.modules;
 
-import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,8 @@ public class Flight {
     private Plane plane;
     private String departure;
     private String destination;
-    private double max_luggage_weight;
-    private double max_num_luggage;
-    private double current_weight;
-    private int current_vacant_seat;
+    private double maxLuggageWeight;
+    private double maxNumLuggage;
+    private double currentWeight;
+    private int currentVacantSeat;
 }

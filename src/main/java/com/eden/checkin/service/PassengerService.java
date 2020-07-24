@@ -1,7 +1,7 @@
 package com.eden.checkin.service;
 
-import com.eden.checkin.beans.Flight;
-import com.eden.checkin.beans.Passenger;
+import com.eden.checkin.modules.Flight;
+import com.eden.checkin.modules.Passenger;
 import com.eden.checkin.repo.PassengerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +29,8 @@ public class PassengerService {
         return  repo.findAll();
     }
     public Passenger checkIn(Passenger passenger,Flight flight){
-        passenger.setChecked_in(true);
-        passenger.setSeat_number(flight.getCurrent_vacant_seat());
+        passenger.setCheckedIn(true);
+        passenger.setSeatNumber(flight.getCurrentVacantSeat());
        return repo.saveAndFlush(passenger);
     }
 

@@ -1,5 +1,4 @@
-package com.eden.checkin.beans;
-
+package com.eden.checkin.modules;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,14 +8,14 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Luggage {
+@AllArgsConstructor
+public class Plane {
     @Id
     @GeneratedValue
     private int id;
-    private double weight;
+    private int seats;
+    private double maxWeight;
 
-//    @ManyToOne(cascade = CascadeType.REMOVE)
-//    private Passenger owner;
+
 }

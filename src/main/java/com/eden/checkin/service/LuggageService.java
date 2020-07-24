@@ -1,6 +1,6 @@
 package com.eden.checkin.service;
 
-import com.eden.checkin.beans.Luggage;
+import com.eden.checkin.modules.Luggage;
 import com.eden.checkin.repo.LuggageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,5 +27,8 @@ public class LuggageService {
     }
     public List<Luggage> getAllLuggage(){
         return  repo.findAll();
+    }
+    public void addLuggageList(List<Luggage> luggage){
+        luggage.forEach(suitcase->this.addLuggage(suitcase));
     }
 }

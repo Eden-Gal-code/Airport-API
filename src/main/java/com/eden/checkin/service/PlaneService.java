@@ -1,7 +1,6 @@
 package com.eden.checkin.service;
 
-import com.eden.checkin.beans.Passenger;
-import com.eden.checkin.beans.Plane;
+import com.eden.checkin.modules.Plane;
 import com.eden.checkin.repo.PlaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

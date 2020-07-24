@@ -1,7 +1,7 @@
-package com.eden.checkin.rest;
+package com.eden.checkin.controllers;
 
-import com.eden.checkin.beans.Flight;
-import com.eden.checkin.beans.Plane;
+import com.eden.checkin.modules.Flight;
+import com.eden.checkin.modules.Plane;
 import com.eden.checkin.service.FlightService;
 import com.eden.checkin.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.eden.checkin.beans;
+package com.eden.checkin.modules;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,16 +7,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Plane {
+public class Passenger {
     @Id
     @GeneratedValue
     private int id;
-    private int seats;
-    private double max_weight;
-
-
+    private String fullName;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Luggage> luggage;
+    private boolean checkedIn;
+    private int seatNumber;
 }

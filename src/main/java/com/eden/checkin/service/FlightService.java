@@ -1,9 +1,8 @@
 package com.eden.checkin.service;
 
-import com.eden.checkin.beans.Flight;
-import com.eden.checkin.beans.Luggage;
-import com.eden.checkin.beans.Passenger;
-import com.eden.checkin.beans.Plane;
+import com.eden.checkin.modules.Flight;
+import com.eden.checkin.modules.Luggage;
+import com.eden.checkin.modules.Passenger;
 import com.eden.checkin.error.CanGetSeatException;
 import com.eden.checkin.error.LuggageNumberException;
 import com.eden.checkin.error.LuggageTotalWeightException;
@@ -43,36 +42,37 @@ public class FlightService {
         return  repo.saveAndFlush(flight);
     }
 
-    public boolean isLuggageAllowedWeightPerOne(Flight flight, List<Luggage> luggage)throws LuggageWeightPerOneException {
+    public boolean isLuggageAllowedWeightPerOne(Flight flight, List<Luggage> luggage) {
         boolean allowed=true;
         for (int i = 0; i < luggage.size(); i++) {
-            if(luggage.get(i).getWeight()> flight.getMax_luggage_weight()) {
+            if(luggage.get(i).getWeight()> flight.getMaxLuggageWeight()) {
                 allowed = false;
-                throw new LuggageWeightPerOneException();
+
             }
         }
 
         return allowed;
     }
-    public boolean isLuggageAllowedNum(Flight flight, List<Luggage> luggage) throws LuggageNumberException {
+    public boolean isLuggageAllowedNum(Flight flight, List<Luggage> luggage)  {
         boolean allowed=true;
-        if(flight.getMax_num_luggage()<luggage.size()){
+        if(flight.getMaxNumLuggage()<luggage.size()){
             allowed=false;
-            throw new LuggageNumberException();
+
         }
         return allowed;
     }
-    public boolean isLuggageAllowedTotalWeight(Flight flight, List<Luggage> luggage) throws LuggageTotalWeightException {
+    public boolean isLuggageAllowedTotalWeight(Flight flight, List<Luggage> luggage) {
         double passenger_weight = 0;
+        boolean allowed=false;
         for (int i = 0; i < luggage.size(); i++) {
             passenger_weight += luggage.get(i).getWeight();
         }
-        if (flight.getPlane().getMax_weight() > flight.getCurrent_weight() + passenger_weight) {
+        if (flight.getPlane().getMaxWeight() > flight.getCurrentWeight() + passenger_weight) {
 
-            return true;
+            allowed= true;
 
         }
-        throw new LuggageTotalWeightException();
+       return allowed;
 
     }
     public void increaseCurrentWeight(Flight flight,List<Luggage> luggage){
@@ -80,21 +80,21 @@ public class FlightService {
         for (int i = 0; i < luggage.size(); i++) {
             passenger_weight += luggage.get(i).getWeight();
         }
-        flight.setCurrent_weight(flight.getCurrent_weight()+passenger_weight);
+        flight.setCurrentWeight(flight.getCurrentWeight()+passenger_weight);
         repo.saveAndFlush(flight);
     }
     public void increaseCurrentSeat(Flight flight){
-        flight.setCurrent_vacant_seat(flight.getCurrent_vacant_seat()+1);
+        flight.setCurrentVacantSeat(flight.getCurrentVacantSeat()+1);
         repo.saveAndFlush(flight);
     }
-    public boolean canGetASeat(Flight flight) throws CanGetSeatException {
+    public boolean canGetASeat(Flight flight) {
+        boolean allowed=false;
+        if (flight.getPlane().getSeats() > flight.getCurrentVacantSeat()+1) {
 
-        if (flight.getPlane().getSeats() > flight.getCurrent_vacant_seat()+1) {
-
-            return true;
+            allowed= true;
 
         }
-        throw new CanGetSeatException();
+        return allowed;
 
 
     }
